@@ -105,7 +105,6 @@ count = 0
     count = count+ 1
     E=train(no_of_layers,no_of_nodes,hn,w,bias,l,len(l),target,eta,classes)
     print('\ncount: ',count,'\terror: ',E,'\n')"""
-n = 0
 hn.insert(0,l[0])
 hn.insert(1,[0,0.5,0.6,0.4,1])
 hn.insert(2,[0.3,0,0.56])
@@ -119,9 +118,9 @@ while(E>0.001):
     print('Before iteration :',E,'\n')
     e_matrix = []
     for itr in range(len(l)):
-        hn[0] = l[0]
+        hn[0] = l[itr]
         hn = neuron_layer(hn,no_of_nodes,bias)
-        act_out = output(target[n],classes)
+        act_out = output(target[itr],classes)
         w,e = train(no_of_nodes,w,hn,act_out,eta,bias)
         E = E + e
         e_matrix.append(e)
