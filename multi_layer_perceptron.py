@@ -44,7 +44,7 @@ def train(no_of_nodes,w,hn,yn,lr,bias):
             vnj = hn[layer+1][classes]
             #print('Actual :',yn[classes],'\tpredicted',vnj)
             w[layer][classes][nodes] = w[layer][classes][nodes] + lr*(yn[classes] - vnj)*vnj*(1-vnj)*hn[layer][nodes-1]
-            e = e + 1/2*math.pow((yn[classes] - vnj),2)
+   
     for classes in range(no_of_nodes[layer+1]):
         vnj = hn[layer+1][classes]
         w[layer][classes][0] = w[layer][classes][0] + lr*(yn[classes] - vnj)*vnj*(1-vnj)*bias[layer]
@@ -60,7 +60,12 @@ def train(no_of_nodes,w,hn,yn,lr,bias):
                 s = s + (yn[classes] - vnj)*vnj*(1-vnj)*vnk*(1-vnk)*w[layer+1][classes][j+1]
             w[layer][j][i+1] = w[layer][j][i+1] + lr*s*hn[layer][i]
                                                                 
-    return w,e                                                                                                           
+    return w,e 
+
+def predict(x,bias):
+    hn[0] = x
+    h1 = neuron_layer(hn,no_of_nodes,bias)
+    print(h1[-1])
 #__main__
 
 data = pd.read_csv("../Downloads/datasets/Iris.csv")
@@ -128,8 +133,9 @@ while(E>0.001):
     
     #plt.plot([itr for itr in range(len(l))],e_matrix)
     #plt.show()
-    E = E/len(l)
-    out_error.append(E)
-    print(E/len(l))
+    k = E/len(l)
+    E = k
+    out_error.append(k)
+    print(k)
     
     
